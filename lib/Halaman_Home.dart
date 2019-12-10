@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:indonesia/indonesia.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:jatis_trans/keberangkatan_tujuan.dart';
+import 'package:jatis_trans/tujuan.dart';
 
 
 String _kabinKelas, _asal, _tujuan, _kodeAsal, _kodeTujuan;
@@ -14,6 +16,9 @@ int _dari_ke;
 bool _isSwitched = false;
 
 class Halaman_Home extends StatefulWidget{
+  List list;
+  int index;
+  Halaman_Home({this.list,this.index});
   @override
   HomeState createState()=> HomeState();
 }
@@ -106,9 +111,12 @@ class HomeState extends State<Halaman_Home>{
                           ],
                         ),
                       ),
-                      new ListTile(title: new Text('Masukan Kota asal'),
+                      //Text("city_name: ${widget.list[widget.index]['city_name']? 'tes isi ' : 'tes kosong'}")
+                      new ListTile(title:  Text(''),
                           leading: Icon(Icons.location_city,color: Colors.blue[800],),
-                          onTap: (){}
+                          onTap: (){
+
+                          }
                       ),
                       Divider(),
                       Container(
@@ -119,9 +127,19 @@ class HomeState extends State<Halaman_Home>{
                           ],
                         ),
                       ),
-                      new ListTile(title: new Text('Masukan Kota Tujuan'),
+                      //(widget.list[widget.index]['city_name'] == null) ? Text('Masukan kota keberangkatan') : Text('${widget.list[widget.index]['city_name']} - ${widget.list[widget.index]['pool_name']}'),
+                      new ListTile(title: Text(''),
                           leading: Icon(Icons.location_city,color: Colors.blue[800],),
-                          onTap: (){}
+                          onTap: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return Tujuan();
+                                    }
+                                )
+                            );
+                          }
                       ),
                       Divider(),
                       Container(

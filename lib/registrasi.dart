@@ -7,29 +7,6 @@ import 'dart:async';
 import 'dart:convert';
 
 
-
-class Response {
-  final String status;
-  final String message;
-  final String user_id;
-  final String user_name;
-  final String email;
-  final String password;
-  Response({this.status, this.message,this.user_id,this.email,this.user_name,this.password});
-
-
-  factory Response.fromJson(Map<String, dynamic> json) {
-    return Response(
-      status: json['status'],
-      message: json['message'],
-      user_id: json['user_id'],
-      user_name: json['user_name'],
-      email:  json['email'],
-      password: json['password'],
-
-    );
-  }
-}
 class Registrasi extends StatefulWidget{
   @override
   RegistrasiState createState()=> RegistrasiState();
@@ -51,69 +28,23 @@ class RegistrasiState extends State<Registrasi>{
   TextEditingController controlleremail = new TextEditingController();
   TextEditingController controllerpassword = new TextEditingController();
 
-  String _response = '';
-  String id_user = '';
-
-
-  // fungsi untuk kirim http post
-  Future<Response> post(String url,var body)async{
-    return await http
-        .post(Uri.encodeFull(url), body: body, headers: {"Accept":"application/json"})
-        .then((http.Response response) {
-
-      final int statusCode = response.statusCode;
-
-      if (statusCode < 200 || statusCode > 400 || json == null) {
-        throw new Exception("Error while fetching data");
-      }
-      return Response.fromJson(json.decode(response.body));
-    });
-  }
-
-
 
 
   void addData(){
-    var url="http://adityo.xyz/jatis_trans/registrasi.php";
+    var url="http://adityo.xyz/jatis/jatis_tambahdata.php";
 
     http.post(url, body: {
       "user_name": controlleruser_name.text,
       "phone_no": controllerphone_no.text,
-      "email": controlleremail.text,
-      "password": controllerpassword.text,
+      "email" : controlleremail.text,
+      "password" : controllerpassword.text,
 
-
-    }).then((response)async{
-
-      if (response.statusCode == "success") {
-
-
-        // simpan shared prefs sudah login
-        // final prefs = await SharedPreferences.getInstance();
-
-        setState(()async {
-          final prefs = await SharedPreferences.getInstance();
-          prefs. setString ( 'email' ,"email" );
-          prefs. setString ( 'password' , "password" );
-          print(controlleremail);
-
-        });
-
-
-        // menuju route Halaman utama
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Halaman_Navigation()));
-      }
 
     });
+
+    print(http.Response);
   }
 
-  String validateMobile(String value) {
-// Indian Mobile number are of 10 digit only
-    if (value.length >= 4)
-      return 'Password Tidak boleh Kurang dari 4 karakter';
-    else
-      return null;
-  }
 
   String validateEmail(String value) {
     Pattern pattern =
@@ -126,7 +57,7 @@ class RegistrasiState extends State<Registrasi>{
   }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orangeAccent,
@@ -246,20 +177,17 @@ class RegistrasiState extends State<Registrasi>{
                           if (formKey.currentState.validate()) {
                             formKey.currentState.save();
 
-                            setState(() {
-                              id_user = 'email';
-                            });
-
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) {
-                                      return Halaman_Navigation();
+                                      return Registrasi();
                                     }
                                 )
                             );
-                            addData();
                           }
+
+                          addData();
                         }
                     ),
                   ],

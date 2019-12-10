@@ -66,7 +66,8 @@ class LoginState extends State<Login>{
   String _response = '';
   bool _apiCall = false;
   String id_user = '';
-
+  String _user_name = '';
+  String _email = '';
   // login shared prefs
   bool alreadyLogin = false;
 
@@ -100,6 +101,11 @@ class LoginState extends State<Login>{
         _apiCall = false;
         _response = response.message;
         id_user =response.user_id;
+        _user_name = response.user_name;
+        _email = response.email;
+
+
+        print(id_user);
 
       });
       print(response);
@@ -113,6 +119,15 @@ class LoginState extends State<Login>{
           alreadyLogin = true;
           final prefs = await SharedPreferences.getInstance();
           prefs.setBool('login', alreadyLogin);
+          prefs.setString('user_name', _user_name);
+          prefs.setString('user_id', id_user);
+          prefs.setString('email', _email);
+
+
+          print(_user_name);
+          print(id_user);
+          print(_email);
+
           print(response);
         });
 
@@ -185,9 +200,10 @@ class LoginState extends State<Login>{
               children: <Widget>[
                 SizedBox(height: 40,),
                 Container(
-                  child:  Image.asset('assets/images/logo.jpg'),
+                  child:  Image.asset('assets/images/logo2.jpg',height:200,),
                 ),
-                SizedBox(height: 50,),
+                SizedBox(height: 30,),
+
                Container(
                  margin: EdgeInsets.only(left: 40,right: 40),
                  child: TextFormField(
@@ -195,6 +211,7 @@ class LoginState extends State<Login>{
                         onChanged: (String value){},
                     //    cursorColor: Colors.deepOrange,
                         decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.email),
                           labelText: "Email",
                           contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                           border:  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -208,7 +225,7 @@ class LoginState extends State<Login>{
                    },
                       ),
                ),
-                progressWidget(),
+
                 SizedBox(height: 20,),
                 Container(
                   margin: EdgeInsets.only(left: 40,right: 40),
@@ -217,6 +234,7 @@ class LoginState extends State<Login>{
                     obscureText:_idHidePassword,
                     onChanged: (String value){},
                     decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.vpn_key),
                       suffixIcon:GestureDetector(
                         onTap:(){
                           _Passwordvisibility();
@@ -239,6 +257,7 @@ class LoginState extends State<Login>{
                   ),
                 ),
                 SizedBox(height: 30,),
+                progressWidget(),
               RaisedButton(
                   child: Text(
                     "Login",
