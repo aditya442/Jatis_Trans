@@ -96,32 +96,13 @@ class ProfileState extends State<Halaman_Profile>{
 
                    child: ListTile(
                      onTap: (){},
-                     leading:  CircleAvatar(backgroundColor: Colors.deepPurpleAccent,child: new Text(''),),
-
-                     /* Container(
-                       alignment: Alignment.topLeft,
-                       height: 50.0,
-                       width: 50.0,
-                       decoration: BoxDecoration(
-                           borderRadius: BorderRadius.circular(25.0),
-                           border: Border.all(
-                               color: Colors.orangeAccent,
-                               style: BorderStyle.solid,
-                               width: 2.0),
-                           image: DecorationImage(
-                               image: AssetImage('assets/images/person.jpg'))),
-                     ),
-                     */
-                     title: Column(
-                       children: <Widget>[
-                         Padding(
-                           padding: const EdgeInsets.only(left: 50),
-                           child: Text(user_name),
+                     leading:
+                         CircleAvatar(
+                           backgroundColor: Colors.white,
+                           child: new Icon(Icons.person_pin,color: Colors.grey,size: 45,),
                          ),
-                        // Text('0823456789'),
-                         Text(email)
-                       ],
-                     ),
+
+                     subtitle: Center(child: Text('')),
                      trailing: Icon(Icons.arrow_forward_ios),
                    ),
                  ),

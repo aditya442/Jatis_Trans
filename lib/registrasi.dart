@@ -31,7 +31,7 @@ class RegistrasiState extends State<Registrasi>{
 
 
   void addData(){
-    var url="http://adityo.xyz/jatis/jatis_tambahdata.php";
+    var url="http://adityo.xyz/jatis_trans/registrasi.php";
 
     http.post(url, body: {
       "user_name": controlleruser_name.text,
@@ -181,7 +181,7 @@ class RegistrasiState extends State<Registrasi>{
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) {
-                                      return Registrasi();
+                                      return Halaman_Navigation();
                                     }
                                 )
                             );

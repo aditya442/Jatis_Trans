@@ -7,6 +7,9 @@ import 'package:jatis_trans/Halaman_Home.dart';
 
 
 class Halaman_Navigation extends StatefulWidget {
+  List list;
+  int index;
+  Halaman_Navigation({this.list,this.index});
   @override
   NavigationState createState() => NavigationState();
 }
@@ -47,9 +50,10 @@ class  NavigationState extends State<Halaman_Navigation> {
               title: Text('Profile')
           ),
         ],
+
         currentIndex: selectedIndex,
         type: BottomNavigationBarType.fixed,
-        fixedColor: Colors.lightBlueAccent,
+        fixedColor: Colors.orangeAccent,
         onTap:((int index){
           setState(() {
             selectedIndex = index ;
@@ -57,8 +61,6 @@ class  NavigationState extends State<Halaman_Navigation> {
         }),
       ),
       body: pages.elementAt(selectedIndex),
-
-
     );
   }
 }
